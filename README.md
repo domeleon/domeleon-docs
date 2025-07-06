@@ -27,10 +27,10 @@ Here's the conceptual documentation:
 
 Domeleon is a concise, modular framework, making it ideal for an LLM to digest and reason about. Even the entire code base with documentation easily fits inside its context window.
 
-When starting a Domeleon application, point your LLM inside Cursor or WindSurf to the [Domeleon LLM Prep Guide](./domeleon-llm-prep-guide.md) and tell it to follow the instructions. This will create a folder `LLM/domeleon` that your LLM can refer to, containing:
+When starting a Domeleon application, point your LLM inside Cursor or WindSurf to the [LLM Readme](./llm-readme.md) and tell it to follow the instructions. This will create a folder `LLM/domeleon` that your LLM can refer to, containing:
 
 * The above documentation
-* The .d.ts files, that include the API signatures and jsdocs
+* The API signatures w/ jsdocs
 * The domeleon source code
 
-Then, when you ask your LLM to create a Domeleon app, it can do so from scratch with an extremely low error rate.
+Then, when you ask your LLM to create a Domeleon app, it can do so far more reliably.
