@@ -1,11 +1,24 @@
-# Domeleon LLM-Prep Guide
+# Domeleon LLM Readme
 
-*This document is intended for LLM consumption within Cursor, Windsurf, etc.*.
+*You (the language model) are reading this inside Cursor/Windsurf.*
 
-Enable an LLM to scaffold or assist in building a Domeleon-based app within **5 minutes** by collecting all required Domeleon materials (types, docs, source) into `LLM/domeleon`, for two scenarios:
+### Why you're reading this
+Before you can scaffold or refactor a Domeleon app you need to *learn* the framework. The quickest way to do that is to give you its **types, docs and full source** in one local folder you can crawl instantly.
 
-1. **From Scratch:** A blank Cursor/Windsurf project.
-2. **Existing Domeleon App:** You already have Domeleon installed and code in place, but now want to generate `LLM/domeleon` to help the LLM understand your project.
+### How that happens
+You will run a short, automated script (steps 1-7 below). It will:
+1. Create `LLM/domeleon/` in the workspace.
+2. Copy type declarations (`*.d.ts`) from the node-modules directory.
+3. Download the official documentation.
+4. Download the latest source code.
+
+When that material at your fingertips, you can rapidly understand Domeleon without having to access the Internet or crawl through the node-modules directory.
+
+### What you will do *after* the preparation
+• Treat `LLM/domeleon/` as your knowledge base.  
+• Generate or edit files only inside `src/` using normal **npm + Vite** workflow (`npm run dev`, `npm run build`).
+
+> If `LLM/domeleon/` doesn't exist yet, start by executing the commands in Steps 1-7 to create it. Once the folder is ready, proceed to scaffold or enhance the app.
 
 ---
 
@@ -20,15 +33,6 @@ Enable an LLM to scaffold or assist in building a Domeleon-based app within **5 
   - **Windows (PowerShell):**
     ```powershell
     npm install domeleon
-    ```
-- Add the bundler for TypeScript declarations:
-  - **Bash:**
-    ```bash
-    npm install --save-dev dts-bundle-generator
-    ```
-  - **PowerShell:**
-    ```powershell
-    npm install --save-dev dts-bundle-generator
     ```
 
 ---
@@ -78,45 +82,43 @@ Simply proceed to **Step 3** to generate the LLM support folder.
 
 ## Step 3: Create the LLM Support Folder
 
-**⚠️ IMPORTANT:** PowerShell can hang when creating multiple directories in one command. Use individual commands instead.
+**⚠️ CRITICAL - PowerShell Hanging Issue:** PowerShell `mkdir` commands can hang indefinitely. Use `New-Item` with `-Force` instead.
 
 - **Bash:**
   ```bash
   mkdir -p LLM/domeleon/typedefs LLM/domeleon/docs LLM/domeleon/source
   ```
-- **PowerShell (Fixed - Create directories individually):**
+- **PowerShell (Fixed - Use New-Item to avoid hanging):**
   ```powershell
-  mkdir LLM
-  mkdir LLM\domeleon
-  mkdir LLM\domeleon\typedefs
-  mkdir LLM\domeleon\docs
-  mkdir LLM\domeleon\source
+  New-Item -ItemType Directory -Path "LLM" -Force
+  New-Item -ItemType Directory -Path "LLM\domeleon" -Force
+  New-Item -ItemType Directory -Path "LLM\domeleon\typedefs" -Force
+  New-Item -ItemType Directory -Path "LLM\domeleon\docs" -Force
+  New-Item -ItemType Directory -Path "LLM\domeleon\source" -Force
   ```
 
 ---
 
-## Step 4: Create Unified Type Declarations
+## Step 4: Copy Unified Type Declarations
 
-**Note:** The current approach creates a unified file but still contains import statements. For a truly self-contained file, the Domeleon library should generate this as part of its build process.
+Copy the `.d.ts` files from `node_modules/domeleon/dist` into `LLM/domeleon/typedefs/`, preserving the folder structure.
 
-### Simple Concatenation (Recommended - Creates Unified File)
+### Copy the Type Definitions
 - **Bash:**
   ```bash
-  cat node_modules/domeleon/dist/*.d.ts > LLM/domeleon/typedefs/api.d.ts
-  cat node_modules/domeleon/dist/addons/*/index.d.ts >> LLM/domeleon/typedefs/api.d.ts
+  mkdir -p LLM/domeleon/typedefs
+  rsync -av --include='*/' --include='*.d.ts' --exclude='*' node_modules/domeleon/dist/ LLM/domeleon/typedefs/
   ```
 - **PowerShell:**
   ```powershell
-  Get-Content node_modules/domeleon/dist/*.d.ts | Out-File -FilePath LLM/domeleon/typedefs/api.d.ts -Encoding UTF8
-  Get-Content node_modules/domeleon/dist/addons/*/index.d.ts | Out-File -FilePath LLM/domeleon/typedefs/api.d.ts -Append -Encoding UTF8
+  mkdir LLM\domeleon\typedefs
+  robocopy node_modules\domeleon\dist LLM\domeleon\typedefs *.d.ts /S
   ```
 
-This creates a single file with all type definitions, though it still contains import statements that reference other files.
+This copies all `.d.ts` files from `node_modules/domeleon/dist` (preserving the folder structure) into `LLM/domeleon/typedefs/`.
 
 **Result:**  
-`LLM/domeleon/typedefs/api.d.ts` contains all Domeleon type definitions in one file.
-
-**Future Enhancement:** The Domeleon library could generate a truly self-contained API reference file optimized for LLM consumption.
+`LLM/domeleon/typedefs/` contains all Domeleon type definitions, organized and ready for LLM consumption.
 
 ---
 
@@ -238,7 +240,7 @@ This creates a single file with all type definitions, though it still contains i
 
 Your `LLM/domeleon` folder now contains:
 
-- **typedefs/api.d.ts** — unified type definitions
+- **typedefs/** — unified type definitions
 - **docs/README.md** — documentation overview
 - **docs/docs/** — topic guides (components, forms, routing, etc.)
 - **source/** — full Domeleon source code
@@ -260,10 +262,48 @@ Feed the project to your LLM. In minutes, you'll have a working Domeleon UI scaf
 
 ---
 
+## Step 8: Dev-Server & TypeScript Quality-of-Life (Highly Recommended)
+
+1. **Install Vite + Preact (runtime + dev-server)**
+   ```bash
+   npm install vite preact
+   ```
+
+2. **Add scripts to `package.json`** (use the *positional* root path – recent Vite versions deprecated `--root`):
+   ```jsonc
+   "scripts": {
+     "dev": "vite src",
+     "build": "vite build src --outDir ../dist --emptyOutDir",
+     "preview": "vite preview ../dist --port 4180"
+   }
+   ```
+
+3. **Create a root `tsconfig.json`** to silence editor squiggles like *Cannot find module './Foo'*:
+   ```jsonc
+   {
+     "compilerOptions": {
+       "target": "ESNext",
+       "module": "ESNext",
+       "moduleResolution": "Node",
+       "strict": true,
+       "jsx": "preserve",
+       "lib": ["DOM", "ESNext"],
+       "types": ["vite/client"],
+       "skipLibCheck": true,
+       "allowSyntheticDefaultImports": true
+     },
+     "include": ["src/**/*"]
+   }
+   ```
+
+With these three tweaks the next LLM can `npm run dev` and iterate immediately – zero friction.
+
+---
+
 ## Summary
 
 ✅ **Successfully completed:** All Domeleon materials collected in `LLM/domeleon/`  
-✅ **Type definitions:** Unified file with all APIs and JSDoc  
+✅ **Type definitions:** Unified files with all APIs and JSDoc  
 ✅ **Documentation:** Comprehensive guides covering all features  
 ✅ **Source code:** src/, package.json, README.md 
 
@@ -274,14 +314,17 @@ Feed the project to your LLM. In minutes, you'll have a working Domeleon UI scaf
 ## Troubleshooting
 
 ### PowerShell Commands Hanging
-- **Problem:** PowerShell `New-Item` with multiple paths can hang
-- **Solution:** Use individual `mkdir` commands instead
-- **Example:** Instead of `New-Item -ItemType Directory -Force -Path a,b,c`, use:
+- **Problem:** PowerShell `mkdir` commands can hang indefinitely
+- **Solution:** Use `New-Item -ItemType Directory -Path "path" -Force` instead
+- **Example:** Instead of `mkdir LLM\domeleon`, use:
   ```powershell
-  mkdir a
-  mkdir b  
-  mkdir c
+  New-Item -ItemType Directory -Path "LLM\domeleon" -Force
   ```
+
+### PowerShell PSReadLine Errors
+- **Problem:** PowerShell may show PSReadLine errors during git operations
+- **Solution:** These are cosmetic errors and don't affect the actual operations
+- **Note:** Git clone operations complete successfully despite the error messages
 
 ### Source Repository Access
 - **Problem:** Git clone hangs or ZIP download fails
@@ -297,9 +340,3 @@ Feed the project to your LLM. In minutes, you'll have a working Domeleon UI scaf
   1. Check your internet connection
   2. Try using a VPN if GitHub is blocked
   3. Use alternative download methods (curl, wget)
-
----
-
-## Future Enhancement: Library-Generated API Reference
-
-**Note:** The Domeleon library could potentially generate this `LLM/domeleon` folder as part of its build process, producing a single consolidated API reference file with JSDoc comments optimized for LLM consumption rather than just tree-shaking. This would eliminate the need for manual bundling and provide better documentation for AI assistants.
