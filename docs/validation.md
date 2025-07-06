@@ -89,5 +89,5 @@ A `validator`'s `state` is of type `ValidationState`:
 
 ## Related Topics
 
-[Forms](./forms.md)
-[Inspector](./inspector.md)
+* [Forms](./forms.md)
+* [Inspector](./inspector.md)

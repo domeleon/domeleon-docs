@@ -26,6 +26,3 @@ If true, then your component tree will automatically be serialized to local stor
 * [Serialization](./serialization.md)
 * [UnoCss](./unocss.md)
 * [Pluggable VDOM - React/Vue/Preact](./pluggable-vdom.md)
-
-
-

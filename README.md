@@ -25,11 +25,12 @@ Here's the conceptual documentation:
 
 ## LLM Usage
 
-When building a Domeleon application, run the script (TBD), to create a folder `LLM/domeleon` that your LLM can refer to. This folder will contain:
+Domeleon is a concise, modular framework, making it ideal for an LLM to digest and reason about. Even the entire code base with documentation easily fits inside its context window.
+
+When starting a Domeleon application, point your LLM inside Cursor or WindSurf to the [Domeleon LLM Prep Guide](./domeleon-llm-prep-guide.md) and tell it to follow the instructions. This will create a folder `LLM/domeleon` that your LLM can refer to, containing:
 
 * The above documentation
 * The .d.ts files, that include the API signatures and jsdocs
-* One or two sample applications (TBD)
 * The domeleon source code
 
-That's the advantage of a small, modular framework; an LLM can easily digest and reason about it. Even in its entirety, all the aforementioned content about Domeleon easily fits in an LLM's context window.
+Then, when you ask your LLM to create a Domeleon app, it can do so from scratch with an extremely low error rate.
