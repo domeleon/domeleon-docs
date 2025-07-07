@@ -1,19 +1,34 @@
 # App
 
-Your Domeleon application always starts by constructing the app. Here's a common setup:
+Your Domeleon application always starts by constructing an App instnace.
+
+Here's a minimal setup:
+
+```ts
+import { App } from 'domeleon'
+
+const app = new App({
+  rootComponent: new Master(), // create your root component
+  containerId: "app", // id of div your root component will live within  
+})
+```
+Here's a more advanced setup:
 
 ```ts
 import { App } from 'domeleon'
 import { inspector } from 'domeleon/inspector'
 import { themeMgr } from './styles/theme'
 import { Master } from './master'
+import { VueRenderer } from 'domeleon/vue'
 
 const app = new App({
-  rootComponent: new Master(), // create your root component
-  containerId: "app", // id of div your root component will live within  
-  cssAdapter: themeMgr.unoCssAdapter,
-  autoPersist: true,
-  plugins: [inspector]
+  rootComponent: new Master(), 
+  containerId: "app",
+  cssAdapter: themeMgr.unoCssAdapter, // pass .class values through per render
+  renderer: new VueRenderer(), // altenatively a ReactRenderer
+  autoPersist: true, // auto serialize component tree to local storage
+  routeService: new RouteService { basePath: "admin"} // only needed for a custom base path
+  plugins: [inspector] // inspect component tree and events
 })
 ```
 
@@ -24,5 +39,7 @@ If true, then your component tree will automatically be serialized to local stor
 ## Related
 
 * [Serialization](./serialization.md)
-* [UnoCss](./unocss.md)
-* [Pluggable VDOM - React/Vue/Preact](./pluggable-vdom.md)
+* [UnoCss](./unocss.md)* 
+* [Pluggable VDOM for React/Vue/Preact](./docs/pluggable-vdom.md)
+* [Routing](./docs/routing.md)
+* [Inspector](./docs/inspector.md)
