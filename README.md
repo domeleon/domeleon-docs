@@ -4,6 +4,8 @@ Build web UIs with classes encapsulating your domain model and a pluggable Preac
 
 **Domeleon is optimized for LLM usage; described further below.**
 
+Here's [examples](./examples.md) of apps built with Domeleon.
+
 Here's a [Quick Start / Overview](https://github.com/domeleon/domeleon).
 
 Here's the conceptual documentation:
