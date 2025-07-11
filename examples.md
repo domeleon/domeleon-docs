@@ -26,8 +26,14 @@ Was vibe coded using an LLM using no TypeScript, no build process, only CDN impo
 It's also on codepen:
 https://codepen.io/antypica/full/wBvoWdL
 
-## Hello World / CodePen Sample
+## Code Pen: Counter Sample
 In case you need a quick kickstart:  
 https://codepen.io/domeleon/pen/azvbyVP
 
 But really, just use Cursor or Windsurf, and get your LLM to read the [LLM Readme](./llm-readme.md). Ask it to build the Game of Life; often succeeds cold in 1 try.
+
+## Replit: Game of Life Sample
+Use this as a starting point:  
+https://replit.com/@benalbahari/GameOfLife
+
+To make that work, I just manually fed it the Code Pen Counter sample & the unocss document. It made more mistakes than Cursor's auto model (e.g. for some reason it erroneous added square brackets around the uno css variables, contradicting the code in the docs I gave it), but with a little intervention, was still a decent result.
