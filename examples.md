@@ -32,7 +32,7 @@ This is a nice little test app. I wrote this with an LLM twice; once with ChatGP
 
 ### ChatGPT
 
-Use the raw HTML of the following page as a starting point for a Domeleon app; just paste it into ChatGPT:
+Use the raw HTML of the following page as a starting point for a Domeleon app; just paste it into ChatGPT:  
 [Game of Life by ChatGPT](./gameOfLife.html)
 
 This was built using o4-mini-high. If you manually feed the LLM enough code and docs, it'll 1 shot.
