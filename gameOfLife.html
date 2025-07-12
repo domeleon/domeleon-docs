@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conway’s Game of Life with Domeleon</title>
+  <style>
+    :root {
+      --bg: #121212;
+      --text: #eee;
+      --btn: #d81b60;          /* Complementary pink */
+      --btn-hover: #c2185b;    /* Darker on hover */
+      --cell-dead: #1e1e1e;
+      --cell-hover: #333333;
+      --cell-alive: #4db6ac;   /* Teal */
+    }
+
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    #controls {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      width: 100%;
+    }
+
+    #controls button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 4px;
+      background: var(--btn);
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    #controls button:hover {
+      background: var(--btn-hover);
+    }
+
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(60, 10px);
+      gap: 1px;
+    }
+
+    .cell {
+      width: 10px;
+      height: 10px;
+      background: var(--cell-dead);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .cell:hover {
+      background: var(--cell-hover);
+    }
+
+    .cell.alive {
+      background: var(--cell-alive);
+    }
+  </style>
+</head>
+<body>
+  <h1>Conway’s Game of Life</h1>
+  <div id="app"></div>
+
+  <script type="module">
+    import { App, Component, div, button, span } from 'https://cdn.skypack.dev/domeleon@latest'
+
+    class GameOfLife extends Component {
+      width = 60
+      height = 40
+      grid = []
+      running = false
+
+      constructor() {
+        super()
+        this.reset()
+      }
+
+      reset() {
+        this.grid = Array.from({ length: this.height }, () =>
+          Array.from({ length: this.width }, () => Math.random() < 0.3)
+        )
+        this.update()
+      }
+
+      toggleCell(x, y) {
+        this.grid[y][x] = !this.grid[y][x]
+        this.update()
+      }
+
+      step() {
+        const next = this.grid.map(row => row.slice())
+        for (let y = 0; y < this.height; y++) {
+          for (let x = 0; x < this.width; x++) {
+            let count = 0
+            for (let dy = -1; dy <= 1; dy++) {
+              for (let dx = -1; dx <= 1; dx++) {
+                if (dx === 0 && dy === 0) continue
+                const ny = (y + dy + this.height) % this.height
+                const nx = (x + dx + this.width) % this.width
+                if (this.grid[ny][nx]) count++
+              }
+            }
+            next[y][x] = this.grid[y][x]
+              ? count === 2 || count === 3
+              : count === 3
+          }
+        }
+        this.grid = next
+        this.update()
+      }
+
+      start() {
+        if (!this.running) {
+          this.running = true
+          this.run()
+        }
+      }
+
+      stop() {
+        this.running = false
+      }
+
+      run() {
+        if (!this.running) return
+        this.step()
+        setTimeout(() => this.run(), 100)
+      }
+
+      view() {
+        return div(
+          div({ id: 'controls' },
+            button({ onClick: () => this.reset() }, 'Randomize'),
+            button({ onClick: () => this.step() }, 'Step'),
+            button({ onClick: () => this.start() }, 'Start'),
+            button({ onClick: () => this.stop() }, 'Stop')
+          ),
+          div({ id: 'grid' },
+            ...this.grid.flatMap((row, y) =>
+              row.map((alive, x) =>
+                span({
+                  class: ['cell', alive ? 'alive' : ''],
+                  onClick: () => this.toggleCell(x, y)
+                })
+              )
+            )
+          )
+        )
+      }
+    }
+
+    new App({ rootComponent: new GameOfLife(), containerId: 'app' });
+  </script>
+</body>
+</html>
