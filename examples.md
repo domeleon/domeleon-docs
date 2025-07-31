@@ -1,10 +1,6 @@
 # Examples / Real World Usage
 
-## Motfin
-Code Music in the browser:  
-https://www.motifn.com/
-
-A good example of building a non trivial app.
+A bunch of examples of using domeleon to write web apps ranging from small & fun to big & commerical.
 
 ## Infinite Mandelbrot Explorer
 https://antypica.com/mandelbrot.html
@@ -30,6 +26,8 @@ https://codepen.io/antypica/full/wBvoWdL
 
 This is a nice little test app. I wrote this with an LLM twice; once with ChatGPT and once with Replit. The LLM will ocassionally contradict the code samples & documentation you give it, so be firm and tell it that no, it needs to trust the docs & samples.
 
+>LLM Tip: If you *really* want an LLM to obey you, instruct it at the start to start each response with a pledge: "I will...".
+
 ### ChatGPT
 
 Use the raw HTML of the following page as a starting point for a Domeleon app; just paste it into ChatGPT:  
@@ -46,3 +44,29 @@ Here's Replit's crack at the Game of Life:
 https://replit.com/@benalbahari/GameOfLife
 
 This one uses domeleon/unocss for styling. I pasted in the domeleon/unocss document to guide it.
+
+## Tanks Game
+
+Play it live here:  
+https://tankduel.netlify.app/
+
+Source code:  
+https://github.com/domeleon/tanks
+
+Fun tank game wrote over a weekend with Cursor. O3 wrote most of the code; fairly light direction on my part. The hardest bit was getting the clouds to look right.
+
+A fun example of using themes & unocss.
+
+## LINQPad Affiliate
+
+Source code:  
+https://github.com/domeleon/linqpad-affiliate
+
+Small commercial project that demonstrates reporting and themes. Again, O3 wrote most of the code; I just nudged it now and again in the right direction.
+
+## Motifn
+
+Code music in your browser:  
+https://www.motifn.com/
+
+This is a project I wrote many years ago that I ported to Domeleon. This has an embedded TypeScript editor; not a trivial UI!
