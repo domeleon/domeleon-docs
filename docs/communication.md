@@ -2,7 +2,7 @@
 
 ## Child-To-Parent Communication
 
-Generally, a child doesn't *need* to talk to its parents; it looks after itself, and delegates to its own children. However, sometimes the best way to manage complexity is to break this generalisation. There are 3 main patterns for doing so:
+Generally, a child doesn't *need* to talk to its parents; it looks after itself, and delegates to its own children. However, sometimes the best way to manage complexity is to break this generalisation. There are 4 main patterns for doing so:
 
 ### Callbacks
 
@@ -21,24 +21,53 @@ In this child-to-parent communication pattern, the parent passes functions down 
 
 In this child-to-parent communication pattern, the child accesses its parent via `this.ctx.parent`. The child then casts the parent to an interface that limits scope and prevents circular type references. Now the child can read state or call methods.
 
-```ts
-  // define common interface both ISetting and parent can use
-  interface ISetting { tick: number }
+In this example, we want the `Animal` component to get its family's `name`, so we allow this via an `IFamily` interface:
 
-  // Parent implements ISetting
-  class Parent extends Component implements ISetting {
-     // implement tick
+```ts
+  interface IFamily { name: string }
+
+  class Family extends Component implements IFamily {
+    name: string
+    animals: Animal[]
   }
     
-  // Child uses ISetting
-  class Child extends Component {
-    getSettings() { return this.parent as ISetting }
+  class Animal extends Component {
+    get family() { return this.ctx.parent as IFamily }  
+    
     foo() {
-      const tick = this.getSettings().tick
-    ...
+      const name = this.family.name
     }
   }
 ```
+
+### Root Interface
+
+Building on the previous idea, sometimes it's useful for the `root` component to expose an interface, that any deeply nested child component can reference.
+
+Here our root component implements `IZoo`:
+
+```ts
+  interface IZoo {
+     families: IFamily[]
+  }
+
+  class Zoo extends Component implements IZoo {
+     families: Family[]
+  }
+
+  class Family {...}
+    
+  class Animal extends Component {
+    get zoo () { return this.root as IZoo }
+    goo() {
+      const pride = this.zoo.families.find(f => f.name == "Lion")      
+    }
+  }
+```
+Key things to remember:
+
+* Keep your interfaces limited. Don't expose more than you need to; the less you expose the less you need to reason about.
+* Avoid children accessing parents, but only to a point: if you're tying yourself in knots trying to be "pure", you're merely trading one type of complexity for another.
 
 ### Update Path
 
@@ -49,6 +78,10 @@ In this child-to-parent communication pattern, the parent overrides `onUpdated (
      ...
   } 
   ```
+This will also catch any input, validator, router & serializer events.
+
+>Tip: To know what update events pass through `onUpdated`, use the Inspector.
+
 ## Component to Non-Component Communication
 
 Within the component layer, *maintain a single source of truth*, i.e. avoid duplicating state across components. But when crossing boundaries, consider *synchronizing* between your component and the other object's state.
@@ -64,3 +97,4 @@ Within the component layer, *maintain a single source of truth*, i.e. avoid dupl
 ## Related Topics
 
 * [Components](./components.md)
+* [Inspector](./inspector.md)
