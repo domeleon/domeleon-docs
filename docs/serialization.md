@@ -58,11 +58,11 @@ Internally, this calls `serialize` and `deserialize` on your root component.
 
 ## Deserializing classes (and dates)
 
-Declare a static `types` map enables plain json objects to be deserialized from plain objects to classes:
+Declare a `serializerMap` to map plain json objects to classes:
 
 ```ts
 export class Tree extends Component {
-  static types = {    
+  serializerMap: SerializerMap<Tree> = {
     setting: Setting   // component
     created: Date      // `Date` special case
     trees  : [Tree],   // array of components
@@ -77,7 +77,7 @@ export class Tree extends Component {
 ```
 The types must be classes (`Date` is also handled). This is necessary because Javascript doesn't actually store runtime type information per property; that's a TypeScript only concept that is destroyed in transpilation.
 
-Specifying a `null` value for a field in `types` prevents serialization. It's typically a useful alternative to prefixing a `Component` property with `_` or `#` for sub-components that you don't want to serialize, but which you still otherwise want to treat as a `Component` (e.g. partaking in updates etc.)
+Specifying a `null` value for a field in `serializerMap` prevents serialization. It's typically a useful alternative to prefixing a `Component` property with `_` or `#` for sub-components that you don't want to serialize, but which you still otherwise want to treat as a `Component` (e.g. partaking in updates etc.)
 
 > **Note**: Domeleon's serializer does **not** use decorators for this purpose, as the latest spec is still not natively implemented by browsers as of 2025.
 

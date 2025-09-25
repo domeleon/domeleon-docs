@@ -39,10 +39,10 @@ Let's flesh this out:
 * add a visualisation of each node.
 
 ```ts
-import { Component, button, div, VElement } from 'domeleon'
+import { Component, button, div, VElement, SerializerMap } from 'domeleon'
 
 export class Tree extends SampleComponent {
-  static types = { trees: [Tree] } // optional, for derialization
+  serializerMap: SerializerMap<SampleComponent> = { trees: [Tree] } // optional, for derialization
   trees: Tree[] = []
 
   add() {
@@ -68,7 +68,7 @@ export class Tree extends SampleComponent {
 }
 ```
 
-The `static types` field enables our tree's children to be successfully deserialized. It's a simple map to deserialize the raw incoming json objects into classes.
+The `serializerMap` field enables our tree's children to be successfully deserialized. It's a simple map to deserialize the raw incoming json objects into classes.
 
 > **💡Deep Dive**: Every component is assigned an auto-incrementing unique `componentId` at construction, accessible via its `ctx` property. It's used by `formField` to automatically assign labels to inputs with unique ids, so you never need to. You rarely actually use it explicitly like we did in this example, but it's informative in understanding how domeleon works.
 
