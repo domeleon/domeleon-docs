@@ -2,9 +2,9 @@
 
 Domeleon's component tree is fully serializable, facilliating hot-reload via persisting to local storage, and transfering objects to and from the server.
 
-## DataKey properties
+## ctx.key and ctx.keysSerialized properties
 
-The serializer only cares about your Component's *dataKey* properties, which are defined as:
+Domeleon only cares about your Component's *ctx.keys* properties, which are:
 
 * **public**
   * **not** properties starting with `_`
@@ -13,11 +13,12 @@ The serializer only cares about your Component's *dataKey* properties, which are
 * type is **primitive**, **object**, or **class**
   * **not** functions
 
-You can get the exact set of properties that your component will serialize by calling your component context's `dataKeys` property:
+You can get the exact set of properties that your component will serialize by calling your component's`ctx.keysSerialized` property:
 
 ```ts
-const keys = this.ctx.dataKeys
+const keys = this.ctx.keysSerialized
 ```
+These are the same as `ctx.keys`, but further filtered by any key set to `null` in your component's `serializerMap` if you choose to set it.
 
 ## Serialization API
 

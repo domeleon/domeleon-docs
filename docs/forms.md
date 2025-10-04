@@ -7,7 +7,7 @@ Domeleon lets you choose 4 increasing layers of abstraction when building forms,
 | Raw Input | Thin wrappers around the `h` function returning a `VElement` | `input`, `select`
 | `inputXXX` | Functions that databind to your components | `inputText`, `inputTextArea`, `inputSelect`, `inputRange`, `inputNumber` (via maskito), `inputMask` (via maskito), `inputCheckbox`, `inputRadioGroup`, `inputCheckboxGroup` |
 | `formField` | Takes an `inputXXX` function and automatically outputs standardized vdom elements with: labelling/description, validation, aria attributes, id generation, structural compatibility with major css frameworks | `formField` |
-| App Fields | Your own helpers that wrap `formField`, based on **data type**, defined once, for consistent styling throughout your application. | `appTextFormField`, `appNumericFormField`
+| App Fields | Your own helpers that wrap `formField` for consistent styling throughout your application. | `appFormField`
    
 > 💡**Note**: By design, Domeleon **never** outputs css classes; this is entirely handled in your application layer. For example, you set the class on the `validationAttrs` property of `formField`; domeleon is 100% not prescriptive here.
 
