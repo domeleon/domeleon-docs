@@ -2,7 +2,7 @@
 
 Domeleon's component tree is fully serializable, facilliating hot-reload via persisting to local storage, and transfering objects to and from the server.
 
-## ctx.key and ctx.keysSerialized properties
+## ctx.keys and serializer.keys properties
 
 Domeleon only cares about your Component's *ctx.keys* properties, which are:
 
@@ -13,10 +13,10 @@ Domeleon only cares about your Component's *ctx.keys* properties, which are:
 * type is **primitive**, **object**, or **class**
   * **not** functions
 
-You can get the exact set of properties that your component will serialize by calling your component's`ctx.keysSerialized` property:
+You can get the exact set of properties that your component will serialize by calling your component's `serializer.keys` property:
 
 ```ts
-const keys = this.ctx.keysSerialized
+const keys = this.serializer.keys
 ```
 These are the same as `ctx.keys`, but further filtered by any key set to `null` in your component's `serializerMap` if you choose to set it.
 
@@ -81,6 +81,23 @@ The types must be classes (`Date` is also handled). This is necessary because Ja
 Specifying a `null` value for a field in `serializerMap` prevents serialization. It's typically a useful alternative to prefixing a `Component` property with `_` or `#` for sub-components that you don't want to serialize, but which you still otherwise want to treat as a `Component` (e.g. partaking in updates etc.)
 
 > **Note**: Domeleon's serializer does **not** use decorators for this purpose, as the latest spec is still not natively implemented by browsers as of 2025.
+
+## onDeserialized event
+
+You can handle `onDeserialized` on your `Component` as follows:
+
+```ts
+class MyComponent extends Component {
+  onDeserialized() {    
+    // e.g. perform validation
+    this.throwIfInvalid()
+  }
+}
+```
+
+After the component and its children have been deserialized, `onDeserialized` is called, children first, recursively.
+
+>**Note:** `onDeserialized` has early access to `ctx.parent` and `ctx.app` (when available) enabling contextual validation, even if `onAttached` has yet to be called. `onUpdated` will always be called afterwards.
 
 ## Handling Sets and Maps
 
