@@ -81,7 +81,7 @@
   <div id="app"></div>
 
   <script type="module">
-    import { App, Component, div, button, span } from 'https://cdn.skypack.dev/domeleon@latest'
+    import { app, Component, div, button, span } from 'https://esm.sh/domeleon@latest'
 
     class GameOfLife extends Component {
       width = 60
@@ -167,7 +167,7 @@
       }
     }
 
-    new App({ rootComponent: new GameOfLife(), containerId: 'app' });
+    app({ root: new GameOfLife(), id: 'app' });
   </script>
 </body>
 </html>

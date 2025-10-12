@@ -47,11 +47,11 @@ Both work recursively.
 When an `App` is initialized with `autoPersist: true`, domeleon automatically saves after each `update`, and on loading, restores its state via local storage. It's trivial to set up:
 
 ```ts
-import { App } from 'domeleon'
+import { app } from 'domeleon'
 
-const app = new App({
-  rootComponent : new Master(),
-  containerId : 'app',
+app({
+  root : new Master(),
+  id : 'app',
   autoPersist : true // save & restore automatically
 })
 ```

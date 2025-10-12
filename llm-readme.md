@@ -253,7 +253,7 @@ Your `LLM/domeleon` folder now contains:
 >
 > Scaffold or modify the app to:
 > 1. Create/import a root component.
-> 2. Hook it up with `new App({rootComponent, containerId:'app'})`.
+> 2. Hook it up with `app({ root: new MyRootComponent(), id: 'app'})`.
 > 3. Use forms, routing, or counters as examples.
 >
 > Reply with file diffs only for `src/`.

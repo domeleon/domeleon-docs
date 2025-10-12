@@ -109,7 +109,7 @@ import { UnoThemeManager, type ThemeProxy } from 'domeleon/unocss'
 Make sure to specify your theme manager's `cssAdapter` in your app:
 
 ```ts
-new App({
+app({
   ...
   cssAdapter: themeMgr.unoCssAdapter  
 })
