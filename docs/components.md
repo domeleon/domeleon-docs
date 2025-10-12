@@ -121,13 +121,13 @@ By far the most expensive part of on update cycle is changes to the *DOM*. Since
 
 # Views
 
-Views are pure functions of component state: each components view returns an extremely light-weight immutable `VElement` tree.
+Views are pure functions of component state: each component's view returns an extremely light-weight immutable `VElement` tree.
 
 The app's chosen `renderer` takes this tree and translates it into the specific VDOM nodes (e.g., Preact, Vue, or React nodes) used by the underlying renderer, which then patches the VDOM.
 
 `view` methods tend to be parameterless, as components are natural units of encapsulation: they simply render their own state. However, the world isn't perfect! In domeleon, you can add optional parameters to your child components' `view` methods. This can be useful when a child's view needs to render state that makes more sense to live on the parent
 
-Critically, domeleon is model-centric, not view-centric. A domeleon compoennts represents a piece of state, not a piece of HTML. A component might be viewless or have multiple methods returning different `VElements`. For example:
+Critically, domeleon is model-centric, not view-centric. A domeleon component represents a piece of state, not a piece of HTML. A component might be viewless or have multiple methods returning different `VElement`s. For example:
 
 ```ts
   summaryView () {
