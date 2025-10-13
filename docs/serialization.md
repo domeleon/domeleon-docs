@@ -47,9 +47,9 @@ Both work recursively.
 When an `App` is initialized with `autoPersist: true`, domeleon automatically saves after each `update`, and on loading, restores its state via local storage. It's trivial to set up:
 
 ```ts
-import { app } from 'domeleon'
+import { App } from 'domeleon'
 
-app({
+new App({
   root : new Master(),
   id : 'app',
   autoPersist : true // save & restore automatically

@@ -59,11 +59,11 @@ You choose a renderer when you launch your app.
 Here's the default, that implicitly uses Preact:
 
 ```ts
-import { app } from 'domeleon'
-import { Index } from './index'
+import { App } from 'domeleon'
+import { Root } from './root'
 ...
 
-app({root: new Index(), id: "app"})
+new App({root: new Root(), id: "app"})
 ```
 ### Vue
 
@@ -71,11 +71,11 @@ Here's using Vue:
 
 ```ts
 import { VueRenderer } from 'domeleon/vue'
-import { app } from 'domeleon'
-import { Index } from './index'
+import { App } from 'domeleon'
+import { Root } from './root'
 
-app({
-  root: new Index(),
+new App({
+  root: new Root(),
   id: "app",
   renderer: new VueRenderer()
 })
@@ -89,12 +89,12 @@ Here's using React:
 import { ReactRenderer } from 'domeleon/react'
 import * as React from 'react'
 import * as ReactDOMClient from 'react-dom/client'
-import { app } from 'domeleon'
-import { Index } from './index'
+import { App } from 'domeleon'
+import { Root } from './root'
 ...
 
-app({
-  root: new Index(),
+new App({
+  root: new Root(),
   id: "app", // or "root" if you prefer that for name of the id of the element to mount on
   renderer: new ReactRenderer({ ReactLib: React as any, ReactDOMClientLib: ReactDOMClient })
 })

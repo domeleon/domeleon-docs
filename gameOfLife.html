@@ -81,7 +81,7 @@
   <div id="app"></div>
 
   <script type="module">
-    import { app, Component, div, button, span } from 'https://esm.sh/domeleon@latest'
+    import { App, Component, div, button, span } from 'https://esm.sh/domeleon@latest'
 
     class GameOfLife extends Component {
       width = 60
@@ -167,7 +167,7 @@
       }
     }
 
-    app({ root: new GameOfLife(), id: 'app' });
+    new App({ root: new GameOfLife(), id: 'app' });
   </script>
 </body>
 </html>

@@ -1,25 +1,25 @@
 # App
 
-Your Domeleon application always starts by constructing an App instnace.
+Your Domeleon application always starts by constructing an `App` instnace.
 
 Here's a minimal setup:
 
 ```ts
-import {app } from 'domeleon'
+import { App } from 'domeleon'
 
-app({ root: new Master(), id: "app"}) // root component + id of element to mount
+new App({ root: new Root(), id: "app"}) // root component + id of element to mount
 ```
 Here's a more advanced setup:
 
 ```ts
-import { app } from 'domeleon'
+import { App } from 'domeleon'
 import { inspector } from 'domeleon/inspector'
 import { themeMgr } from './styles/theme'
 import { Master } from './master'
 import { VueRenderer } from 'domeleon/vue'
 
-app({
-  root: new Master(), 
+new App({
+  root: new Root(), 
   id: "app",
   cssAdapter: themeMgr.unoCssAdapter, // pass .class values through per render
   renderer: new VueRenderer(), // altenatively a ReactRenderer

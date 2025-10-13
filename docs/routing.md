@@ -109,7 +109,7 @@ Transparent routers still receive `onNavigate` and `onNavigated` events. They ju
 You can explicitly initialize the `RouteService` in the `App` construtor to set of a `basePath`. This will ensure your entire router setup works relatively to that path.
 
 ```ts
-app ({
+new App ({
    ...
    routeService: new RouteService { basePath: "admin"}
 })

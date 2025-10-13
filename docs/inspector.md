@@ -5,10 +5,10 @@ The `inspector` is a tool that lets you see your component tree and monitor upda
 Set up the inspector as follows:
 
 ```ts
-import { app } from 'domeleon'
+import { App } from 'domeleon'
 import { inspector } from 'domeleon/inspector'
 
-app({
+new App({
   ...
   plugins: [inspector]
 })
