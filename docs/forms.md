@@ -7,7 +7,7 @@ Domeleon lets you choose 4 increasing layers of abstraction when building forms,
 | Raw Input | Thin wrappers around the `h` function returning a `VElement` | `input`, `select`
 | `inputXXX` | Functions that databind to your components | `inputText`, `inputTextArea`, `inputSelect`, `inputRange`, `inputNumber` (via maskito), `inputMask` (via maskito), `inputCheckbox`, `inputRadioGroup`, `inputCheckboxGroup` |
 | `formField` | Takes an `inputXXX` function and automatically outputs standardized vdom elements with: labelling/description, validation, aria attributes, id generation, structural compatibility with major css frameworks | `formField` |
-| App Fields | Your own helpers that wrap `formField` for consistent styling throughout your application. | `appFormField`
+| `formField` wrapper | Your own helpers that wrap `formField` for consistent styling throughout your application. | `myFormField`
    
 > 💡**Note**: By design, Domeleon **never** outputs css classes; this is entirely handled in your application layer. For example, you set the class on the `validationAttrs` property of `formField`; domeleon is 100% not prescriptive here.
 
@@ -54,7 +54,7 @@ Every `inputXxx` function takes a `target` and `prop` value, to perform the data
 
 ## formField
 
-Here's how we could use an input function with `formField`. Note that in a typical app we'd probably write a reusable formField per data type in our app, to minimise boilerplate, as we'll see later.
+Here's how we could use an input function with `formField`. Note that in a typical app we'd probably write a reusable formField, to minimise boilerplate, as we'll see later.
 
 ```ts
 import { Component, div } from 'domeleon';
@@ -83,45 +83,39 @@ So why use `formField` rather than just directly use an `inputXxx` function?
 `formField` will **automatically**:
 
 * include a human readable label and/or description, either driven by the component's field name by default, or by the `getLabel` method if implemented on the component
-* asssign unique `id`s for the label and descriptions to work properly
+* asssign unique `id`s for the label and descriptions to work properly (using `component.ctx.qualify(prop)`).
 * output aria attributes
 * if validation is enabled, output validation errors
 * include a ubiqituous element structure compatible with all major css frameworks
 
+Swapping from bootstrap to unocss? Your form fields stay the same: just update the css classes you feed them. `formField` helps you deeply separate the concerns of your form's data vs. presentation.
+
 ## Writing a `formField` wrapper
 
-It's common to write a wrapper for `formField` for each data type, that apply the styling you want. You want your usage to look like this:
+It's common to write a wrapper for `formField`, for consistent styling across your app. Your usage can look like this:
 
 ```typescript
-  appSelectFormField ({
+  appFormField ({
     target: this,
-    prop: () => this.country, countr
-    options: [
-      {value: "UA", label: "Ukraine"},
-      {value: "GE", label: "Georgia"}
-    ]}
+    prop: () => this.country
   )
 ```
 
-Where you've defined a reusuable `appSelectFormField`. Here is where you can set every facet of the form field, to precisely control the styling.
+Where you've defined a reusuable `appFormField`. Here is where you can set every facet of the `formField`, to precisely control the styling.
 
 ```typescript
-const appSelectFormField = (props: AppSelectProps) => 
-  return formField({
-    target: props.target
-    prop: props.prop,
-    inputFn: inputSelect,
-    inputProps: props.options
+type SupportedInputFn = typeof inputText | typeof inputNumber | typeof inputMask
 
-    // common customizations
+const appFormField = (props: FormFieldInputProps<SupportedInputFn>) => 
+  return formField({
+    ...props,
+    // common customization
     fieldAttrs: { class: styles.field }, // div wrapping entire field
-    controlAttrs: { class: styles.control }, // div wrapping input
-    inputSuffix: [arrowIcon] // add nicer icon for select dropdown
+    descriptionAttrs: { class: styles.description },
     validationAttrs: { class: styles.error } // e.g. red    
   })
 ```
-
-Note the unified structure, regardless of whether we're using text inputs, select inputs, or radio buttons:
+`formField` always provides a unified structure, regardless of whether we're using text inputs, select inputs, or radio buttons:
 
 * `target` // the component to databind to
 * `prop` // the property on the component to databind to, expressed in a type safe manner
