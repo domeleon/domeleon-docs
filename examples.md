@@ -1,9 +1,9 @@
 # Examples / Real World Usage
 
 Look no further than:  
-https://tspad.dev
+https://typebulb.com
 
-AI Powered Typescript scratchpad written in Domeleon, with plenty of Domeleon examples. The samples were all written by LLMs which code quickly with the predictable, straightforward Domeleon design. This isn't an accident; it's how Domeleon was created - all usability testing was done by getting LLMs to write Domeleon code.
+Prototype in Typescript your ideas with AI. Written in Domeleon, with plenty of Domeleon examples. The samples were all written by LLMs which code quickly with the predictable, straightforward Domeleon design. This isn't an accident; it's how Domeleon was created - all usability testing was done by getting LLMs to write Domeleon code.
 
 Also, here's more examples of using Domeleon to write web apps ranging from small & fun to big & commerical:
 
@@ -22,13 +22,13 @@ A Mandelbrot Explorer on steroids:
 Zoom example:  
 https://antypica.com/mandelbrot.html?z=5.02e24&iterations=5000&x=-1.256822095990453833949454069&y=0.379714613427455344693340029
 
-It's also on tspad:  
-https://tspad.dev/u/ben/mandelbrot
+It's also on typebulb:  
+https://typebulb.com/u/ben/mandelbrot
 
 ## Game Of Life
 
 This is a nice little test app. 3D version:  
-https://tspad.dev/u/ben/cellular-automata
+https://typebulb.com/u/ben/cellular-automata
 
 ## Tanks Game
 
@@ -36,7 +36,7 @@ Play it live here:
 https://tankduel.netlify.app/
 
 Edit source code live here:  
-https://tspad.dev/u/ben/tanks
+https://typebulb.com/u/ben/tanks
 
 A fun example of using themes & unocss.
 
