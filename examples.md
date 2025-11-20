@@ -3,7 +3,7 @@
 Look no further than:  
 https://typebulb.com
 
-Prototype in Typescript your ideas with AI. Written in Domeleon, with plenty of Domeleon examples. The samples were all written by LLMs which code quickly with the predictable, straightforward Domeleon design. This isn't an accident; it's how Domeleon was created - all usability testing was done by getting LLMs to write Domeleon code.
+A modern AI powered code scratchpad for Typescript. Written in Domeleon, with plenty of Domeleon examples. The samples were all written by LLMs which code quickly with the predictable, straightforward Domeleon design. This isn't an accident; it's how Domeleon was created - all usability testing was done by getting LLMs to write Domeleon code.
 
 Also, here's more examples of using Domeleon to write web apps ranging from small & fun to big & commerical:
 
@@ -22,13 +22,14 @@ A Mandelbrot Explorer on steroids:
 Zoom example:  
 https://antypica.com/mandelbrot.html?z=5.02e24&iterations=5000&x=-1.256822095990453833949454069&y=0.379714613427455344693340029
 
-It's also on typebulb:  
-https://typebulb.com/u/ben/mandelbrot
+Both the basic and infinite version are on typebulb:  
+https://typebulb.com/u/ben/mandelbrot  
+https://typebulb.com/u/ben/infinite-mandelbrot
 
 ## Game Of Life
 
 This is a nice little test app. 3D version:  
-https://typebulb.com/u/ben/cellular-automata
+https://typebulb.com/u/ben/donut-life
 
 ## Tanks Game
 
