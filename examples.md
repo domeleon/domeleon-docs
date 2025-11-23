@@ -23,13 +23,13 @@ Zoom example:
 https://antypica.com/mandelbrot.html?z=5.02e24&iterations=5000&x=-1.256822095990453833949454069&y=0.379714613427455344693340029
 
 Both the basic and infinite version are on typebulb:  
-https://typebulb.com/u/ben/mandelbrot  
-https://typebulb.com/u/ben/infinite-mandelbrot
+https://typebulb.com/u/samples/mandelbrot  
+https://typebulb.com/u/samples/infinite-mandelbrot
 
 ## Game Of Life
 
 This is a nice little test app. 3D version:  
-https://typebulb.com/u/ben/donut-life
+https://typebulb.com/u/samples/donut-life
 
 ## Tanks Game
 
@@ -37,7 +37,7 @@ Play it live here:
 https://tankduel.netlify.app/
 
 Edit source code live here:  
-https://typebulb.com/u/ben/tanks
+https://typebulb.com/u/samples/tanks
 
 A fun example of using themes & unocss.
 
