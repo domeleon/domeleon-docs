@@ -2,11 +2,12 @@
 
 Build web UIs with classes encapsulating your domain model and a pluggable Preact/React/Vue VDOM.
 
+There's plenty of domeleon examples on Typebulb, a Typescript Scratchpad which was itself written in domeleon:  
+https://typebulb.com/
+
+Some extra [domeleon apps here](./examples.md).
+
 **Domeleon is optimized for LLM usage; described further below.**
-
-Here's [examples](./examples.md) of apps built with Domeleon.
-
-Here's a [Quick Start / Overview](https://github.com/domeleon/domeleon).
 
 Here's the conceptual documentation:
 
