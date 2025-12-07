@@ -10,14 +10,14 @@ Some extras:
 ## Tanks Game
 
 Play it live and edit here:
-https://typebulb.com/u/samples/tanks/full
+https://typebulb.com/u/showcase/tanks/full
 
 A fun example of using themes & unocss.
 
 ## Infinite Mandelbrot Explorer
 
 A Mandelbrot Explorer on steroids:
-https://typebulb.com/u/samples/infinite-mandelbrot/full
+https://typebulb.com/u/showcase/infinite-mandelbrot/full
 
 * 1e300 zoom depth, perturbation algo
 * Animated zoom & progressive rendering
@@ -27,7 +27,7 @@ https://typebulb.com/u/samples/infinite-mandelbrot/full
 * Built with WebGL2, WebAssembly & Web Workers
 
 Zoom example:  
-https://typebulb.com/u/samples/infinite-mandelbrot/full?z=5.02e24&iterations=5000&x=-1.256822095990453833949454069&y=0.379714613427455344693340029
+https://typebulb.com/u/showcase/infinite-mandelbrot/full?z=5.02e24&iterations=5000&x=-1.256822095990453833949454069&y=0.379714613427455344693340029
 
 ## Motifn
 
